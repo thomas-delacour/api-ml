@@ -1,0 +1,18 @@
+FROM ubuntu:latest
+
+RUN apt update && apt install python3-pip -y
+
+ADD api_models.py /project/api_models.py
+ADD requirements.txt /project/requirements.txt
+ADD tests/test_scores.py /project/tests/test_scores.py
+ADD tests/utils.py /project/tests/utils.py
+ADD tests/test.csv /project/tests/test.csv
+
+COPY train /project/train
+COPY ml_models /project/ml_models
+
+WORKDIR /project
+
+RUN pip install -r requirements.txt
+
+CMD python3 -m pytest tests/test_scores.py

@@ -1,0 +1,63 @@
+version: '3.9'
+services:
+  api:
+    build: .
+    container_name: api_ml
+    networks:
+      - network_testing
+    ports: 
+      - "8000:8000"
+  unit_test:
+    build:
+      context: .
+      dockerfile: ./tests/Dockerfile.unit
+    container_name: api_unit
+    networks: 
+      - network_testing
+    environment:
+      LOG: 1
+    depends_on:
+      - api
+    volumes:
+      - .:/log_files
+  scores:
+    build:
+      context: .
+      dockerfile: ./tests/Dockerfile.scores
+    container_name: api_scores
+    networks: 
+      - network_testing
+    environment:
+      LOG: 1
+    depends_on:
+      - api
+    volumes:
+      - .:/log_files
+  predict:
+    build:
+      context: .
+      dockerfile: ./tests/Dockerfile.predict
+    container_name: api_predict
+    networks: 
+      - network_testing
+    environment:
+      LOG: 1
+    depends_on:
+      - api
+    volumes:
+      - .:/log_files
+  authorizations:
+    build:
+      context: .
+      dockerfile: ./tests/Dockerfile.authorizations
+    container_name: api_authorizations
+    networks: 
+      - network_testing
+    environment:
+      LOG: 1
+    depends_on:
+      - api
+    volumes:
+      - .:/log_files
+networks:
+  network_testing:
