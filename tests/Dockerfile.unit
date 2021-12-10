@@ -6,6 +6,7 @@ ADD api_models.py /project/api_models.py
 ADD requirements.txt /project/requirements.txt
 ADD tests/unit_test.py /project/tests/unit_test.py
 ADD tests/utils.py /project/tests/utils.py
+
 COPY train /project/train
 COPY ml_models /project/ml_models
 
@@ -13,4 +14,4 @@ WORKDIR /project
 
 RUN pip install -r requirements.txt
 
-CMD python3 -m pytest tests/unit_test.py
+CMD python3 -m pytest tests/unit_test.py --no-header

@@ -15,4 +15,4 @@ WORKDIR /project
 
 RUN pip install -r requirements.txt
 
-CMD python3 -m pytest tests/test_authorizations.py
+CMD python3 -m pytest tests/test_authorizations.py --no-header
