@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-ml-deployment
+  labels:
+    app: api-ml
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api-ml
+  template:
+    metadata:
+      labels:
+        app: api-ml
+    spec:
+      containers:
+      - name: api-ml
+        image: tdde052021/api-ml:1.0.0
+        ports:
+        - containerPort: 8000
